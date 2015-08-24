@@ -1,18 +1,6 @@
 <div>
     <h2>Hello React Templates</h2>
-    <div>
-        Country:
-        <select valueLink="{this.linkState('selectedCountry')}">
-            <option value="{null}">Choose Country</option>
-            <option rt-repeat="country in this.state.countries" value="{countryIndex}">{countryIndex}</option>
-        </select>
-    </div>
-    <div>
-        City:
-        <select valueLink="{this.linkState('selectedCity')}">
-            <option rt-if="this.state.selectedCountry" value="{null}">Choose City</option>
-            <option rt-repeat="city in this.state.countries[this.state.selectedCountry]">{city}</option>
-        </select>
-    </div>
-    <button rt-if="this.submitEnable()">Submit</button>
+    Long: <input type="number" valueLink="{this.valueLink('long')}"/>
+    Lat: <input type="number" valueLink="{this.valueLink('lat')}"/>
+    <div>ShaiK likes to over react at ({this.state.location.long},{this.state.location.lat})</div>
 </div>
