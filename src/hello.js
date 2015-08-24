@@ -7,18 +7,38 @@ define(['react', 'lodash', './hello.rt'], function (React, _, template) {
         mixins: [React.addons.LinkedStateMixin],
 
         getInitialState: function () {
-            var fields = ['first'];
-            return {fields: fields, newFieldName: ''};
+            return {location: {long: 1, lat: 1}};
         },
 
-        handleClick: function () {
-            this.setState({fields: this.state.fields.concat([this.state.newFieldName])});
+        handleChange: function (newValue, prop) {
+            var newState = this.state;
+            if (prop === 'long') {
+                newState.location.long = newValue;
+            } else {
+                newState.location.lat = newValue;
+            }
+            this.setState(newState);
         },
 
-        handleFieldChange: function (e) {
-            window.console.log(e.target.value);
+        handleChangeLong: function (newValue) {
+            return this.handleChange(newValue, 'long');
         },
 
-        render: template
+        handleChangeLat: function (newValue) {
+            return this.handleChange(newValue, 'lat');
+        },
+
+        valueLink: function (prop) {
+            var value = prop === 'long' ? this.state.location.long : this.state.location.lat;
+            var requestChange = prop === 'long' ? this.handleChangeLong : this.handleChangeLat;
+            return {
+                value: value,
+                requestChange: requestChange
+            };
+        },
+
+        render: function () {
+            return template.apply(this);
+        }
     });
 });
