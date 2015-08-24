@@ -7,34 +7,19 @@ define(['react', 'lodash', './hello.rt'], function (React, _, template) {
         mixins: [React.addons.LinkedStateMixin],
 
         getInitialState: function () {
-            return {location: {long: 1, lat: 1}};
-        },
-
-        handleChange: function (newValue, prop) {
-            var newState = this.state;
-            if (prop === 'long') {
-                newState.location.long = newValue;
-            } else {
-                newState.location.lat = newValue;
-            }
-            this.setState(newState);
-        },
-
-        handleChangeLong: function (newValue) {
-            return this.handleChange(newValue, 'long');
-        },
-
-        handleChangeLat: function (newValue) {
-            return this.handleChange(newValue, 'lat');
-        },
-
-        valueLink: function (prop) {
-            var value = prop === 'long' ? this.state.location.long : this.state.location.lat;
-            var requestChange = prop === 'long' ? this.handleChangeLong : this.handleChangeLat;
             return {
-                value: value,
-                requestChange: requestChange
+                countries: {
+                    China: ['Shang-Chay'],
+                    Israel: ['Tel Aviv', 'Netanya', 'Beer Sheva'],
+                    Brazil: ['San Paulo', 'Rio']
+                },
+                selectedCountry: null,
+                selectedCity: null
             };
+        },
+
+        submitEnable: function () {
+            return this.state.selectedCountry && _.contains(this.state.countries[this.state.selectedCountry], this.state.selectedCity) ? true : false;
         },
 
         render: function () {
