@@ -8,29 +8,26 @@ define(['react', 'lodash', './hello.rt'], function (React, _, template) {
 
         getInitialState: function () {
             return {
-                compHeight: 300,
-                ribbonHeight: 300,
-                padding: 0
-            };
+                currStyle: this.stylesList()[0],
+                currStyleNum: 0
+                };
         },
 
-        handleChange: function (prop, newValue) {
-            var newState = _.cloneDeep(this.state);
-            newState[prop] = newValue;
-            if (prop === 'padding') {
-                newState.ribbonHeight = newState.compHeight - 2 * newState.padding;
-            }
-            if (prop === 'ribbonHeight') {
-                newState.padding = (newState.compHeight - newState.ribbonHeight) / 2;
-            }
-            this.setState(newState);
+        stylesList: function () {
+            return [
+                {},
+                {style: {color: 'red', 'font-size': '20px'}},
+                {style: {color: 'green', 'font-size': '30px'}},
+                {style: {color: 'blue', 'font-size': '40px'}}
+            ];
         },
 
-        valueLink: function (prop) {
-            return {
-                value: this.state[prop],
-                requestChange: this.handleChange.bind(this, prop)
-            };
+        handleClick: function (direction) {
+            var newStyleNum = this.state.currStyleNum;
+            newStyleNum += ((direction === 'left') ? -1 : 1);
+            newStyleNum = newStyleNum % this.stylesList().length;
+            var newStyle = this.stylesList()[newStyleNum];
+            this.setState({currStyle: newStyle, currStyleNum: newStyleNum});
         },
 
         render: template

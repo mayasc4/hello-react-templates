@@ -1,13 +1,5 @@
-<rt-require dependency="slider" as="slider"/>
-
-<div style="width:250px;">
-    <!--Component Height: <slider min="{(this.state.padding * 2) + this.state.ribbonHeight}" max="{500}" valueLink="{this.linkState('compHeight')}"/><br/>-->
-    Ribbon Height: <slider min="{0}" max="{this.state.compHeight - (this.state.padding * 2)}" valueLink="{this.valueLink('ribbonHeight')}"/><br/>
-    Padding: <slider min="{0}" max="{this.state.compHeight / 2 - this.state.ribbonHeight / 2}" valueLink="{this.valueLink('padding')}"/><br/>
-    <!--Ribbon Height: <slider min="{0}" max="{this.state.compHeight}" valueLink="{this.valueLink('ribbonHeight')}"/><br/>-->
-    <!--Padding: <slider min="{0}" max="{this.state.compHeight / 2}" valueLink="{this.valueLink('padding')}"/><br/>-->
-    <div style="border:2px solid blue;height:{this.state.compHeight}">
-        <div style="border:2px solid red;height:{this.state.ribbonHeight};top:{this.state.padding};position:relative">
-        </div>
-    </div>
+<div>
+    <div className="onerow arrow left" onClick="()=>this.handleClick('left')"></div>
+    <div className="onerow" rt-props="this.state.currStyle"> This is some text. </div>
+    <div className="onerow arrow right" onClick="()=>this.handleClick('right')"></div>
 </div>
