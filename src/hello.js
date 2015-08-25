@@ -7,16 +7,32 @@ define(['react', 'lodash', './hello.rt'], function (React, _, template) {
         mixins: [React.addons.LinkedStateMixin],
 
         getInitialState: function () {
-            return {};
+            return {
+                compHeight: 300,
+                ribbonHeight: 300,
+                padding: 0
+            };
         },
 
-        getProps: function () {
-            return {style: {color: 'red'}};
+        handleChange: function (prop, newValue) {
+            var newState = _.cloneDeep(this.state);
+            newState[prop] = newValue;
+            if (prop === 'padding') {
+                newState.ribbonHeight = newState.compHeight - 2 * newState.padding;
+            }
+            if (prop === 'ribbonHeight') {
+                newState.padding = (newState.compHeight - newState.ribbonHeight) / 2;
+            }
+            this.setState(newState);
         },
 
-        render: function () {
-            return template.apply(this);
-        }
+        valueLink: function (prop) {
+            return {
+                value: this.state[prop],
+                requestChange: this.handleChange.bind(this, prop)
+            };
+        },
+
+        render: template
     });
 });
-
